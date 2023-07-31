@@ -14,7 +14,7 @@ require_once ('config/autoload.php');
 <body class="d-flex justify-content-center">
     <main class="col-8">
         <?php
-            $db = new PDO('mysql:host=127.0.0.1;dbname=FinalBattle;charset=utf8', 'root');
+            $db = new PDO('mysql:host=127.0.0.1;dbname=finalbattle;charset=utf8', 'root');
             $heroManager = new HeroesManager($db);
             if (isset($_POST['name'])){
                 $hero = new Hero($_POST['name'], $_POST['avatar']);
