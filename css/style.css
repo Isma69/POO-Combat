@@ -1,0 +1,13 @@
+body {
+    background-image: url('../images/shenronbg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.carousel-inner {
+    background-color: transparent; /* Set the background color of the carousel to transparent */
+}
+
+.card {
+    border: 2px solid blue; /* Add a 2px blue border to each card */
+}

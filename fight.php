@@ -16,13 +16,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     // Vérifier si le héros a été trouvé
     if ($hero) {
         // Instancier un FightManager
-        $fightManager = new FightsManager();
+        $fightsManager = new FightsManager();
 
         // Créer un monstre en utilisant la fonction createMonster() du FightManager
-        $monster = $fightManager->createMonster("Goblin"); // Vous pouvez spécifier le nom du monstre ici
+        $monster = $fightsManager->createMonster("Goblin"); // Vous pouvez spécifier le nom du monstre ici
 
         // Déclencher le combat en utilisant la fonction fight() du FightManager
-        $fightResult = $fightManager->fight($hero, $monster);
+        $fightsResult = $fightsManager->fight($hero, $monster);
 
         // Une fois le combat résolu, appelez la fonction update() du HeroesManager pour mettre à jour les informations du héros dans la base de données
         $heroesManager->update($hero);
@@ -42,10 +42,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <title>Combat</title>
 </head>
 <body>
-    <?php if (isset($fightResult) && !empty($fightResult)): ?>
+    <?php if (isset($fightsResult) && !empty($fightsResult)): ?>
         <h2>Résultat du combat :</h2>
         <ul>
-            <?php foreach ($fightResult as $result): ?>
+            <?php foreach ($fightsResult as $result): ?>
                 <li><?php echo $result; ?></li>
             <?php endforeach; ?>
         </ul>

@@ -8,13 +8,14 @@ require_once ('config/autoload.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body class="d-flex justify-content-center">
     <main class="col-8">
         <?php
-            $db = new PDO('mysql:host=127.0.0.1;dbname=finalbattle;charset=utf8', 'root');
+            $db = new PDO('mysql:host=127.0.0.1;dbname=FinalBattle;charset=utf8', 'root');
             $heroManager = new HeroesManager($db);
             if (isset($_POST['name'])){
                 $hero = new Hero($_POST['name'], $_POST['avatar']);
@@ -22,15 +23,14 @@ require_once ('config/autoload.php');
             }
             $heroes = $heroManager->findAllAlive();
         ?>
-        <form method="POST" class="text-center bg-success bg-gradient text-light">
+        <form method="POST" class="text-center  text-light">
             <label for="name">Name</label>
             <input type="text" id="name" name="name">
             <label for="avatar">Changez votre avatar : </label>
             <select id="avatar" name="avatar">
-                <option value="images/avatar1.png">Warrior</option>
-                <option value="images/avatar2.png">Ranger</option>
-                <option value="images/avatar3.png">Mage</option>
-                <option value="images/avatar4.png">Rogue</option>
+                <option value="images/goku.png">SonGoku</option>
+                <option value="images/vegeta.png">Vegeta</option>
+                <option value="images/yajirobe.png">Yajirobe</option>
             </select>
             <img src="" width="100px"/> 
             <input type="submit" value="Envoyer">
@@ -43,7 +43,7 @@ require_once ('config/autoload.php');
             });
         </script>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner bg-success bg-gradient rounded">
+            <div class="carousel-inner rounded">
             <?php $totalHeroes = count($heroes); ?>
                     <?php for ($i = 0; $i < $totalHeroes; $i += 3) : ?>
                         <div class="carousel-item <?php if ($i === 0) echo 'active'; ?>">
@@ -51,8 +51,8 @@ require_once ('config/autoload.php');
                                 <?php for ($j = $i; $j < min($i + 3, $totalHeroes); $j++) : ?>
                                     <?php $hero = $heroes[$j]; ?>
                                         <div class="col-md-4">
-                                        <img src="<?php echo($hero->getAvatar()); ?>" class="card-img-top" height="500px">
-                                        <div class="card-body text-center">
+                                        <img src="<?php echo($hero->getAvatar()); ?>" class="card-img-top border mt-3" height="500px">
+                                        <div class="card-body text-center text-primary border">
                                             <h5 class="card-title"><?php echo($hero->getName()); ?></h5>
                                             <p class="card-text"><i class="fa-solid fa-heart" style="color: #e01b24;"></i> <?php echo($hero->getHealthpoint(). " PV"); ?></p>
                                             <form method="GET" action="fight.php">
