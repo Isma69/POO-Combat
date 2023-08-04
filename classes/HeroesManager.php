@@ -23,8 +23,37 @@ class HeroesManager {
 
     public function findAllAlive() {
         $query = $this->db->query('SELECT * FROM heroes WHERE health_point > 0');
-        $heroesAlive = $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Hero");
-        return $heroesAlive;
+        $heroesData = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+        $heroes = array();
+    
+        foreach ($heroesData as $data) {
+            // Utiliser l'avatar pour déterminer le type de héros
+            $avatar = $data['avatar'];
+    
+            switch ($avatar) {
+                case 'goku.png':
+                    $hero = new SonGokuHero($data['name'], $data['avatar']);
+                    break;
+                case 'vegeta.png':
+                    $hero = new VegetaHero($data['name'], $data['avatar']);
+                    break;
+                    case 'yajirobe.png':
+                        $hero = new YajirobeHero($data['name'], $data['avatar']);
+                        break;
+                // Ajouter les autres cas pour les autres types de héros
+                default:
+                    $hero = new SonGokuHero($data['name'], $data['avatar']); // Par défaut, on crée un objet de type Hero
+                    break;
+            }
+    
+            // Configurer les autres propriétés du héros
+            $hero->setId($data['id']);
+            $hero->setHealthPoint($data['health_point']);
+            $heroes[] = $hero;
+        }
+    
+        return $heroes;
     }
 
     public function find($heroId) {
@@ -35,9 +64,20 @@ class HeroesManager {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            $hero = new Hero($result['name'], $result['avatar']);
-            $hero->setId($result['id']);
-            $hero->setHealthPoint($result['health_point']);
+            $hero = null;
+            if ($result['avatar'] === 'images/goku.png') {
+                $hero = new SonGokuHero($result['name'], $result['avatar']);
+            } elseif ($result['avatar'] === 'images/vegeta.png') {
+                $hero = new VegetaHero($result['name'], $result['avatar']);
+            } elseif ($result['avatar'] === 'images/yajirobe.png') {
+                $hero = new YajirobeHero($result['name'], $result['avatar']);
+            }
+            
+            if ($hero) {
+                $hero->setId($result['id']);
+                $hero->setHealthPoint($result['health_point']);
+            }
+            
             return $hero;
         } else {
             return null;

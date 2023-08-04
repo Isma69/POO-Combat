@@ -1,14 +1,40 @@
 <?php
-class Hero {
-    private int $id;
-    private $name;
-    private int $health_point;
-    private $avatar;
 
-    public function __construct($name = null, $avatar = null){
+abstract class Hero {
+    private int $id;
+    private string $name;
+    private int $health_point;
+    private string $avatar;
+    private int $energy;
+    
+
+    public function __construct(string $name = null, string $avatar = null) {
         $this->name = $name;
         $this->avatar = $avatar;
+        $this->energy = 100; // Initial energy set to 100
     }
+
+    public function getEnergy(): int {
+        return $this->energy;
+    }
+
+    public function decreaseEnergy(int $amount) {
+        $this->energy -= $amount;
+        if ($this->energy < 0) {
+            $this->energy = 0;
+        }
+    }
+
+    public function increaseEnergy(int $amount) {
+        $this->energy += $amount;
+        if ($this->energy > 100) {
+            $this->energy = 100;
+        }
+    }
+
+    abstract public function specialAttack(Monster $target): int;
+    abstract public function getSpecialAttackName(): string;
+    abstract public function specialAttackDamage(Monster $target): int;
 
     /**
      * Set the value of id
@@ -61,12 +87,21 @@ class Hero {
     /**
      * Get the value of avatar
      */
-    public function getAvatar()
+    public function getAvatar(): string
     {
         return $this->avatar;
     }
 
-    public function hit($target){
+    /**
+     * Set the value of avatar
+     */
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
+    public function hit(Monster $target): int {
         $targetHealth = $target->getHealthPoint();
         $damage = rand(10, 20);
         $targetHealth -= $damage;
@@ -74,4 +109,3 @@ class Hero {
         return $damage;
     }
 }
-
