@@ -1,8 +1,8 @@
 <?php
 // Connexion à la base de données avec PDO
 $dsn = 'mysql:host=localhost;dbname=finalbattle';
-$username = 'root';
-$password = '';
+$username = 'isma69';
+$password = '9Janvier1996';
 
 try {
     $db = new PDO($dsn, $username, $password);
