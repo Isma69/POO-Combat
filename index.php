@@ -14,7 +14,7 @@ require_once('config/autoload.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <?php
-        $db = new PDO('mysql:host=127.0.0.1;dbname=FinalBattle;charset=utf8', 'root');
+        $db = new PDO('mysql:host=127.0.0.1;dbname=finalbattle;charset=utf8', 'isma69', '9Janvier1996');
         $heroManager = new HeroesManager($db);
         $heroes = $heroManager->findAllAlive();
         ?>
